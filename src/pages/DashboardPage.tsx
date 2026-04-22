@@ -1,34 +1,32 @@
-import { useSyncExternalStore } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { MODULES } from '../data/modules'
 import { loadProgress, type ProgressState } from '../lib/progress'
 
-function subscribe(cb: () => void) {
-  const run = () => cb()
-  window.addEventListener('storage', run)
-  window.addEventListener('ailab-progress', run)
-  return () => {
-    window.removeEventListener('storage', run)
-    window.removeEventListener('ailab-progress', run)
-  }
-}
-
-function getSnapshot(): ProgressState {
-  return loadProgress()
-}
-
-function getServerSnapshot(): ProgressState {
-  return {
-    completedModuleIds: [],
-    practiceRuns: 0,
-    bestPromptScore: 0,
-    lastPromptScore: null,
-    guideMessagesSent: 0,
-  }
+const empty: ProgressState = {
+  completedModuleIds: [],
+  practiceRuns: 0,
+  bestPromptScore: 0,
+  lastPromptScore: null,
+  guideMessagesSent: 0,
 }
 
 export function DashboardPage() {
-  const p = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
+  const [p, setP] = useState<ProgressState>(() => {
+    if (typeof window === 'undefined') return empty
+    return loadProgress()
+  })
+
+  useEffect(() => {
+    const run = () => setP(loadProgress())
+    run()
+    window.addEventListener('storage', run)
+    window.addEventListener('ailab-progress', run)
+    return () => {
+      window.removeEventListener('storage', run)
+      window.removeEventListener('ailab-progress', run)
+    }
+  }, [])
 
   const completed = MODULES.filter((m) => p.completedModuleIds.includes(m.id))
 
@@ -45,7 +43,10 @@ export function DashboardPage() {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <Stat label="Modules done" value={`${completed.length}/${MODULES.length}`} />
         <Stat label="Prompt Builder runs" value={String(p.practiceRuns)} />
-        <Stat label="Best prompt score" value={p.bestPromptScore ? `${p.bestPromptScore}/100` : '—'} />
+        <Stat
+          label="Best prompt score"
+          value={p.practiceRuns > 0 ? `${p.bestPromptScore}/100` : '—'}
+        />
         <Stat label="Guide messages sent" value={String(p.guideMessagesSent)} />
       </div>
 
