@@ -24,6 +24,12 @@ export function HomePage() {
             Start learning
           </Link>
           <Link
+            to="/games"
+            className="inline-flex items-center justify-center rounded-xl border border-line bg-card px-5 py-3 text-sm font-semibold text-ink transition hover:border-teal/40 hover:bg-ember-soft"
+          >
+            Six skill games
+          </Link>
+          <Link
             to="/practice/prompt-builder"
             className="inline-flex items-center justify-center rounded-xl border border-line bg-card px-5 py-3 text-sm font-semibold text-ink transition hover:border-teal/40 hover:bg-ember-soft"
           >

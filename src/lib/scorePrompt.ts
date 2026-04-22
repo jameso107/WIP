@@ -24,6 +24,19 @@ export const PROMPT_TASKS: PromptTask[] = [
   },
 ]
 
+/** Prompt Craft Arena: includes practice tasks plus a communication-heavy challenge. */
+export const PROMPT_ARENA_TASKS: PromptTask[] = [
+  ...PROMPT_TASKS,
+  {
+    id: 'science-study-guide',
+    title: '7th-grade science study guide',
+    scenario:
+      'You teach yourself cells and energy for a unit test. You need a study guide you can actually learn from—not paragraphs to memorize blindly.',
+    goalLine:
+      'Prompt the model for definitions, one example each, and exactly five practice questions with answers hidden until you try them.',
+  },
+]
+
 export type ScoreResult = {
   score: number
   feedback: string[]

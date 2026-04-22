@@ -25,6 +25,9 @@ export function Layout() {
             <NavLink to="/learn" className={navClass}>
               Learn
             </NavLink>
+            <NavLink to="/games" className={navClass}>
+              Games
+            </NavLink>
             <NavLink to="/practice/prompt-builder" className={navClass}>
               Practice
             </NavLink>
