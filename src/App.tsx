@@ -6,6 +6,7 @@ import { GuideChatPage } from './pages/GuideChatPage'
 import { HomePage } from './pages/HomePage'
 import { ModulePage } from './pages/ModulePage'
 import { PromptBuilderPage } from './pages/PromptBuilderPage'
+import { TodosPage } from './pages/TodosPage'
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
           <Route path="practice/prompt-builder" element={<PromptBuilderPage />} />
           <Route path="guide" element={<GuideChatPage />} />
           <Route path="dashboard" element={<DashboardPage />} />
+          <Route path="todos" element={<TodosPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

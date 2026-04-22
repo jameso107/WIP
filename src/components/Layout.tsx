@@ -1,4 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom'
+import { SupabaseSessionSync } from './SupabaseSessionSync'
 
 const navClass = ({ isActive }: { isActive: boolean }) =>
   [
@@ -11,6 +12,7 @@ const navClass = ({ isActive }: { isActive: boolean }) =>
 export function Layout() {
   return (
     <div className="flex min-h-svh flex-col">
+      <SupabaseSessionSync />
       <header className="sticky top-0 z-10 border-b border-line bg-paper/95 backdrop-blur-sm">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-4 px-4 py-3 sm:px-6">
           <NavLink
@@ -31,6 +33,9 @@ export function Layout() {
             </NavLink>
             <NavLink to="/dashboard" className={navClass}>
               Dashboard
+            </NavLink>
+            <NavLink to="/todos" className={navClass}>
+              Todos
             </NavLink>
           </nav>
         </div>
