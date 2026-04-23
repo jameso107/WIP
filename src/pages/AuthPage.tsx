@@ -2,6 +2,7 @@ import { startTransition, useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 import { logLoginEvent } from '../lib/loginEvents'
+import { getAuthEmailRedirectTo } from '../lib/siteUrl'
 
 type Row = { event_type: string; created_at: string }
 
@@ -57,7 +58,7 @@ export function AuthPage() {
         password: p,
         options: {
           data: { display_name: displayName.trim() || e.split('@')[0] },
-          emailRedirectTo: typeof window !== 'undefined' ? `${window.location.origin}/` : undefined,
+          emailRedirectTo: getAuthEmailRedirectTo(),
         },
       })
       if (error) {
